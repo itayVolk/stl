@@ -1,5 +1,6 @@
 /*
- * Sin-Yaw Wang <swang24@scu.edu>
+ * Itay Volk <ivolk@scu.edu>
+ * Rushil Kumar <rkumar3@scu.edu>
  */
 #include <iostream>
 #include <iomanip>
@@ -41,21 +42,6 @@ int main(int argc, char *argv[]) {
 
     while (std::cin >> p)
         plist.push_back(p);
-	/*
-	 * Students to do:
-	 * Counter the number of records fall into each of the BMI range. Compute the proportion.  Output the percentage for each range. Use “std::map” to count for each range.
-     * Use “std::sort” to sort the vector first by gender and by last name. Output the entire vector using vector iterator.  Note the provided code already overloaded the formatted output operator “<<”.
-	 * Find the first person at or taller than “targetHeight”.
-	 * Find the first person at or heavier than the “targetWeight” and of the “targetGender.”
-     * Find the first person at or more than the “targetBMI.”
-	 *
-	 * For 1, use "std::map" to collect the count.
-	 * For 2 to 5, make use of the C++ "iterator" feature.
-	 *
-	 * For the above, must use each of the below at least once.
-	 * Function pointer, lambda function, and functor
-	 */
-
 	 
 	cout << "BMI category Statistics:" << endl;
 	map<string, int> bmiCounts;
