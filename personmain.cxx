@@ -23,6 +23,7 @@ struct CmpLessBMI {
 int main(int argc, char *argv[]) {
     std::vector<Person> plist;
     Person p;
+	
 	constexpr double targetHeight = 70.0;
 	constexpr double targetWeight = 150.0;
 	const double targetBMI = BMI(targetWeight, targetHeight);
@@ -50,6 +51,53 @@ int main(int argc, char *argv[]) {
 	 * For the above, must use each of the below at least once.
 	 * Function pointer, lambda function, and functor
 	 */
+
+	 
+	 cout << "\n-- BMI Category Statistics --" << endl;
+	 map<string, int> bmiCounts;
+	 int totalRecords = 0;
+	 double personBmi = 0;
+	 for (vector<Person>::iterator it = plist.begin(); it!=plist.end(); ++it){
+		personBmi = BMI (it->getWeight(), it->getHeight());
+		totalRecords++;
+		for (const auto& category : BMICategory){
+			if(personBmi <= category.first){
+				bmiCounts[category.second]++;
+				break;
+			}
+		}
+	 }
+	cout << fixed << setprecision(2);
+	double proportion;
+	 for (map<string, int>::iterator it = bmiCounts.begin(); it !=bmiCounts.end(); ++it){
+		proportion = 0;
+		if (totalRecords > 0) proportion = (static_cast <double>(it->second) / totalRecords) * 100.0;
+		cout << it->first << ": " << it->second << " records (" << proportion << "%)" << endl;
+	 }
+
+
+
+	 sort(plist.begin(), plist.end(), [](const Person& a, const Person& b){
+		if (a.getGender() != b.getGender()){
+			return a.getGender() < b.getGender();
+		}
+		return a.getLName() < b.getLName();
+	 });
+	 cout << "\n Sorting by Gender Then Last Name: " << endl;
+	 for (vector<Person>::iterator it = plist.begin(); it != plist.end(); ++it){
+		cout << it->getFName() << " " << it->getLName() << endl;
+	 }
+
+
+
+	cout << "First person at or taller than the target height:" << endl;
+	if ((it = find_if(plist.begin(), plist.end(), [targetHeight](Person x) {return x.getHeight() >= targetHeight; })) != plist.end())
+		cout << *it << ": " << setprecision(2) << it->getHeight() << " >= " << targetHeight << endl;
+	else
+		cout << "None." << endl;
+
+
+
 	cout << "Person at or more than the target weight and of the target gender:" << endl;
 	if ((it = find_if(plist.begin(), plist.end(), [targetWeight, targetGender](Person x) { return x.getWeight() >= targetWeight && x.getGender() == targetGender; })) != plist.end())
 		cout << *it << ": " << setprecision(2) << it->getWeight() << " >= " << targetWeight << " && " << it->getGender() << " == " << targetGender << endl;
